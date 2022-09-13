@@ -47,10 +47,5 @@
     "@babel/core": "^7.12.9",
     "react-native-svg-transformer": "^1.0.0"
   },
-  "bugs": {
-    "url": "https://github.com/GeekyAnts/nativebase-templates/issues"
-  },
-  "homepage": "https://github.com/GeekyAnts/nativebase-templates#readme",
-  "author": "Aditya Jamuar",
   "private": true
 }

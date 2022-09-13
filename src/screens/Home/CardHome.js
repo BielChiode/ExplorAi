@@ -65,10 +65,10 @@ function CardHome({ open = false, onPress }) {
           </Text>
         </HStack>
         <HStack w="100%" h="100%" p={1} space="2%" flexWrap="wrap">
-          <PreferenciaItem titulo="Música ao vivo" />
-          <PreferenciaItem titulo="Churrasco" />
-          <PreferenciaItem titulo="Drinks" />
-          <PreferenciaItem titulo="Pet Friendly" />
+          <PreferenciaItem titulo="Música ao vivo" width="48%" />
+          <PreferenciaItem titulo="Churrasco" width="48%" />
+          <PreferenciaItem titulo="Drinks" width="48%" />
+          <PreferenciaItem titulo="Pet Friendly" width="48%" />
         </HStack>
       </Box>
     </Pressable>

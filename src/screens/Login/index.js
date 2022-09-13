@@ -13,7 +13,7 @@ import {
   HStack,
   KeyboardAvoidingView,
 } from "native-base";
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
@@ -30,6 +30,7 @@ export default function Login({ navigation }) {
   const [senha, setSenha] = React.useState(null);
   const [usuario, setUsuario] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
+  let imageLogin;
 
   function handleLogin() {
     if (!email || !senha) {
@@ -47,6 +48,12 @@ export default function Login({ navigation }) {
         setIsLoading(false);
       });
   }
+
+  // useEffect(() => {
+  //   usuario
+  //     ? (imageLogin = require("../../../assets/login.png"))
+  //     : (imageLogin = require("../../../assets/login-estabelecimento.png"));
+  // }, [usuario, imageLogin]);
 
   return (
     <DismissKeyboard>

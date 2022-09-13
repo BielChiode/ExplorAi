@@ -4,11 +4,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 // import { Container } from './styles';
 
-function PreferenciaItem({ checked = true, titulo }) {
+function PreferenciaItem({ checked = true, titulo, width }) {
   const theme = useTheme();
   return (
     <Box
-      w="48%"
+      w={width}
       h="20px"
       bg={checked ? "secondaryLocal" : "whiteLocal"}
       rounded="lg"
@@ -18,6 +18,7 @@ function PreferenciaItem({ checked = true, titulo }) {
       alignItems="center"
       justifyContent="center"
       mb={1}
+      shadow={4}
     >
       <Box
         w="10%"

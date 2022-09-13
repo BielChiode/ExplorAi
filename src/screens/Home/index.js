@@ -12,12 +12,16 @@ import {
 import React from "react";
 import useAuth from "../../hooks/useAuth";
 import UserImg from "../../../assets/gabriel.jpg";
-import { MaterialIcons } from "@expo/vector-icons";
 import CardHome from "./CardHome";
-import FooterItem from "../../components/FooterItem";
+import Footer from "../../components/Footer";
+import { Alert } from "react-native";
 
 export default function Home({ navigation }) {
   const { user } = useAuth();
+
+  const teste = (page) => {
+    navigation.navigate(page);
+  };
 
   function handleNavigate() {
     navigation.navigate("DetalhesEstabelecimento");
@@ -71,37 +75,7 @@ export default function Home({ navigation }) {
       </ScrollView>
       {/* Fim Cards */}
       {/* Fim Body */}
-      <HStack
-        w="100%"
-        h="70px"
-        bg="#fff"
-        borderTopWidth={1}
-        borderTopColor="#DED3D4"
-      >
-        <FooterItem iconName="home-filled" activeItem={true} />
-        <Box w="33%" h="100%" justifyContent="center" alignItems="center">
-          <Box
-            bgColor="secondaryLocal"
-            p={4}
-            mt={-50}
-            rounded="full"
-            style={{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 5,
-              },
-              shadowOpacity: 0.5,
-              shadowRadius: 3.84,
-
-              elevation: 10,
-            }}
-          >
-            <MaterialIcons name={"search"} size={40} color="#fff" />
-          </Box>
-        </Box>
-        <FooterItem iconName="person-outline" />
-      </HStack>
+      <Footer onPressItem={teste} />
     </VStack>
   );
 }

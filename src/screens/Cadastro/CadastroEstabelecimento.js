@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Center,
+  Divider,
   FormControl,
   Heading,
   Icon,
@@ -15,20 +16,21 @@ import {
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
-import LoginImage from "../../../assets/login.png";
-import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
+import LoginImage from "../../../assets/login-estabelecimento.png";
+import { Alert } from "react-native";
 
-const DismissKeyboard = ({ children }) => (
-  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-    {children}
-  </TouchableWithoutFeedback>
-);
-
-function CadastroUsuario() {
+function CadastroEstabelecimento() {
   const [show, setShow] = React.useState(false);
   const [invalidInput, setInvalidInput] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [form, setForm] = React.useState({
+    nomeEstabelecimento: "",
+    endereco: "",
+    descricao: "",
+    hrFuncionamento: "",
+    telefone: "",
+    site: "",
+    site: "",
     email: "",
     senha: "",
     confirmaSenha: "",
@@ -52,15 +54,14 @@ function CadastroUsuario() {
       });
   }
   return (
-    // <ScrollView flex={1}>
-    <DismissKeyboard>
+    <ScrollView bg="coolGray.50">
       <KeyboardAvoidingView>
-        <Center w="100%" h="100%" bg="coolGray.50">
-          <Box safeArea p={2} py={5} w="90%" maxW="290">
-            <Box w="100%" h="40%">
+        <Center w="100%">
+          <Box p={2} w="90%" maxW="290">
+            <Box w="100%">
               <Image
                 w="full"
-                h="80%"
+                h="200px"
                 resizeMode="contain"
                 source={LoginImage}
                 alt="Imagem de login"
@@ -74,11 +75,79 @@ function CadastroUsuario() {
                 fontWeight="medium"
                 size="xs"
               >
-                Faça seu cadastro para melhorar sua experiência no app
+                Faça o cadastro do seu estabelecimento, assim podemos
+                aperfeiçoar a busca do usuário pelo seu comércio
               </Heading>
             </Box>
-            <Box w="100%" h="60%" mt={2}>
+            <Divider my={3} />
+            <Heading size="md" fontWeight="600" color="coolGray.800">
+              Informações
+            </Heading>
+            <Box w="100%" h="60%">
               <VStack space={3} mt="5">
+                <CampoForm
+                  titulo="Nome"
+                  placeholder="Bar central da vila"
+                  value={form.nomeEstabelecimento}
+                  type="text"
+                  onChangeText={(e) => setForm({ nomeEstabelecimento: e })}
+                />
+                <CampoForm
+                  titulo="Endereço"
+                  placeholder="Rua da vila, 123"
+                  type="text"
+                  value={form.endereco}
+                  onChangeText={(e) => setForm({ endereco: e })}
+                />
+                <FormControl>
+                  <FormControl.Label>
+                    Descrição estabelecimento
+                  </FormControl.Label>
+                  <Input
+                    h="100px"
+                    lineHeight={5}
+                    placeholder="Bar aconchegante com ambiente aberto e música ao vivo, perfeito para reunir a familia e amigos."
+                    type="text"
+                    value={form.descricao}
+                    onChangeText={(e) => setForm({ descricao: e })}
+                  />
+                </FormControl>
+                <CampoForm
+                  titulo="Horário de funcionamento"
+                  placeholder="Seg a Dom, 8:00 as 22:00"
+                  type="text"
+                  value={form.hrFuncionamento}
+                  onChangeText={(e) => setForm({ hrFuncionamento: e })}
+                />
+                <Divider my={3} />
+                <Heading size="md" fontWeight="600" color="coolGray.800">
+                  Contato
+                </Heading>
+                <CampoForm
+                  titulo="Telefone"
+                  placeholder="(11)99999-9999"
+                  value={form.telefone}
+                  type="text"
+                  onChangeText={(e) => setForm({ telefone: e })}
+                />
+                <CampoForm
+                  titulo="Site"
+                  placeholder="www.bardavila.com.br"
+                  value={form.site}
+                  type="text"
+                  onChangeText={(e) => setForm({ site: e })}
+                />
+                <CampoForm
+                  titulo="Instagram"
+                  placeholder="@bardavila"
+                  value={form.instagram}
+                  type="text"
+                  onChangeText={(e) => setForm({ instagram: e })}
+                />
+                <Divider my={3} />
+                <Heading size="md" fontWeight="600" color="coolGray.800">
+                  Autenticação
+                </Heading>
                 <FormControl>
                   <FormControl.Label>Email</FormControl.Label>
                   <Input
@@ -153,9 +222,10 @@ function CadastroUsuario() {
                 <Button
                   isLoading={isLoading}
                   onPress={handleCadastro}
-                  mt="2"
                   bg="red.500"
                   _text={{ color: "coolGray.50" }}
+                  mt={5}
+                  mb={10}
                 >
                   Cadastrar
                 </Button>
@@ -164,9 +234,22 @@ function CadastroUsuario() {
           </Box>
         </Center>
       </KeyboardAvoidingView>
-    </DismissKeyboard>
-    // </ScrollView>
+    </ScrollView>
   );
 }
 
-export default CadastroUsuario;
+export default CadastroEstabelecimento;
+
+function CampoForm({ titulo, placeholder, type, value, onChangeText }) {
+  return (
+    <FormControl>
+      <FormControl.Label>{titulo}</FormControl.Label>
+      <Input
+        placeholder={placeholder}
+        type={type}
+        value={value}
+        onChangeText={onChangeText}
+      />
+    </FormControl>
+  );
+}

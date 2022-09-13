@@ -1,7 +1,8 @@
-import { Box, Heading } from "native-base";
 import React from "react";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Box, Heading } from "native-base";
 import EstabUsuario from "../../components/EstabUsuario";
+import CadastroUsuario from "./CadastroUsuario";
+import CadastroEstabelecimento from "./CadastroEstabelecimento";
 
 function Cadastro() {
   const [tipoCadastro, setTipoCadastro] = React.useState(null);
@@ -15,7 +16,7 @@ function Cadastro() {
   if (tipoCadastro === "usuario") {
     return <CadastroUsuario />; //componente de cadastro para usuario
   } else {
-    return <Box flex={1} w="100%" bgColor="primary.700"></Box>; //componente de cadastro para estabelecimento
+    return <CadastroEstabelecimento />; //componente de cadastro para estabelecimento
   }
 }
 
@@ -29,20 +30,6 @@ function EscolheUsuarioEstabelecimento({ goToMenu }) {
       </Box>
       <EstabUsuario goToMenu={goToMenu} />
     </Box>
-  );
-}
-
-const DismissKeyboard = ({ children }) => (
-  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-    {children}
-  </TouchableWithoutFeedback>
-);
-
-function CadastroUsuario() {
-  return (
-    <DismissKeyboard>
-      <CadastroUsuario />
-    </DismissKeyboard>
   );
 }
 

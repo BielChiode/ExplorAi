@@ -6,13 +6,15 @@ import Cadastro from "../screens/Cadastro";
 import DetalhesEstabelecimento from "../screens/DetalhesEstabelecimento";
 import Home from "../screens/Home";
 import Login from "../screens/Login";
+import Perfil from "../screens/Perfil";
+import Preferencias from "../screens/Preferencias";
 
 const Stack = createStackNavigator();
 
 export default function Navigator() {
   const { user } = useAuth();
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Perfil">
       {user.active ? (
         <>
           <Stack.Screen
@@ -24,6 +26,16 @@ export default function Navigator() {
             name="DetalhesEstabelecimento"
             component={DetalhesEstabelecimento}
             options={{ title: "Detalhes" }}
+          />
+          <Stack.Screen
+            name="Preferencias"
+            component={Preferencias}
+            options={{ title: "Preferências" }}
+          />
+          <Stack.Screen
+            name="Perfil"
+            component={Perfil}
+            options={{ title: "Perfil" }}
           />
         </>
       ) : (
