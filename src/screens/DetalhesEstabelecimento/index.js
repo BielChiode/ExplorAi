@@ -12,6 +12,7 @@ import RestauranteImg from "../../../assets/restaurante.png";
 import { ImageBackground, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import PreferenciaItem from "../../components/PreferenciaItem";
 
 // import { Container } from './styles';
 
@@ -49,8 +50,25 @@ function DetalhesEstabelecimento({ open = true }) {
       </Box>
       {/* Fim estabelecimento imagens */}
       {/* Seção de preferencias */}
-      <Box w="100%" h="100px" bg="primary.300" px={3} pt={3}>
-        <Box w="100%" h="100%" bg="blue.200"></Box>
+      <Box w="100%" h="75px" px={3} pt={2}>
+        <Box w="100%" h="100%">
+          <HStack mt={2} space="3%" flexWrap="wrap">
+            <PreferenciaItem
+              titulo={"Musica ao vivo"}
+              checked={true}
+              width="30%"
+            />
+            <PreferenciaItem titulo={"Drinks"} checked={true} width="30%" />
+            <PreferenciaItem titulo={"Privativo"} checked={true} width="30%" />
+            <PreferenciaItem titulo={"Próximo"} checked={true} width="30%" />
+            <PreferenciaItem titulo={"Wifi"} checked={true} width="30%" />
+            <PreferenciaItem
+              titulo={"Musica ao vivo"}
+              checked={true}
+              width="30%"
+            />
+          </HStack>
+        </Box>
       </Box>
       {/* Fim seção preferencias */}
       {/* Informações estabelecimento */}

@@ -1,24 +1,34 @@
 import React, { createContext, useContext, useEffect } from "react";
+import { useState } from "react";
 
 const AuthContext = createContext({});
 
-const config = {
-  iosClientId:
-    "427286578614-4qh8lji8f6bl5lagidmn3dd347f2pjpf.apps.googleusercontent.com",
-  androidClientId:
-    "427286578614-mgjl0n8tseqrfhpei5no0os2svdm24s6.apps.googleusercontent.com",
-  expoClientId:
-    "427286578614-s809ebqsvqm11jiec4h2b8ekqfbv15i9.apps.googleusercontent.com",
-};
-
 export const AuthProvider = ({ children }) => {
+  const usuario = {
+    active: true,
+    name: "Gabriel Chiode",
+    tipo: "usuario",
+    imagem:
+      "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
+  };
+  const estabelecimento = {
+    active: true,
+    name: "Boteco dus Carioca",
+    tipo: "estabelecimento",
+    imagem:
+      "https://i.pinimg.com/originals/f2/e2/23/f2e223539c0b7d30fb5a453a602eafaa.png",
+  };
+  const [user, setUser] = useState(usuario);
+
+  const changeUser = () => {
+    if (user.tipo === "usuario") setUser(estabelecimento);
+    else setUser(usuario);
+  };
   return (
     <AuthContext.Provider
       value={{
-        user: {
-          active: true,
-          name: "Gabriel",
-        },
+        user,
+        changeUser,
       }}
     >
       {children}

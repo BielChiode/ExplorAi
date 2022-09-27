@@ -4,12 +4,18 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 // import { Container } from './styles';
 
-function PreferenciaItem({ checked = true, titulo, width }) {
+function PreferenciaItem({
+  checked = true,
+  titulo,
+  width,
+  height = "20px",
+  fontSizeTitulo = "10px",
+}) {
   const theme = useTheme();
   return (
     <Box
       w={width}
-      h="20px"
+      h={height}
       bg={checked ? "secondaryLocal" : "whiteLocal"}
       rounded="lg"
       overflow="hidden"
@@ -36,7 +42,7 @@ function PreferenciaItem({ checked = true, titulo, width }) {
         />
       </Box>
       <Text
-        fontSize="10px"
+        fontSize={fontSizeTitulo}
         color={checked ? "whiteLocal" : "secondaryLocal"}
         ml={2.5}
       >

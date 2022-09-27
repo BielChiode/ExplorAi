@@ -45,7 +45,7 @@ function Footer({ onPressItem }) {
       </Box>
       <FooterItem
         iconName="person-outline"
-        onPressItem={() => onPressItem("perfil")}
+        onPressItem={() => onPressItem("Perfil")}
       />
     </HStack>
   );
