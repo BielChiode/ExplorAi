@@ -9,7 +9,6 @@ import {
   Image,
   Input,
   KeyboardAvoidingView,
-  ScrollView,
   VStack,
   WarningOutlineIcon,
 } from "native-base";
@@ -17,6 +16,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
 import LoginImage from "../../../assets/login.png";
 import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
+import useAuth from "../../hooks/useAuth";
+import { useNavigation } from "@react-navigation/native";
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -33,24 +34,25 @@ function CadastroUsuario() {
     senha: "",
     confirmaSenha: "",
   });
-
-  function handleCadastro() {
-    if (!form.email || !form.senha || !form.confirmaSenha) {
-      return Alert.alert("Cadastro", "Por favor preencha todos os campos...");
-    }
-    setIsLoading(true);
-    auth()
-      .createUserWithEmailAndPassword(form.email, form.senha)
-      .then((result) => {
-        console.log(result);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error.code);
-        setIsLoading(false);
-        return;
-      });
-  }
+  const navigation = useNavigation();
+  const { loginUsuario } = useAuth();
+  // function handleCadastro() {
+  //   if (!form.email || !form.senha || !form.confirmaSenha) {
+  //     return Alert.alert("Cadastro", "Por favor preencha todos os campos...");
+  //   }
+  //   setIsLoading(true);
+  //   auth()
+  //     .createUserWithEmailAndPassword(form.email, form.senha)
+  //     .then((result) => {
+  //       console.log(result);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.code);
+  //       setIsLoading(false);
+  //       return;
+  //     });
+  // }
   return (
     // <ScrollView flex={1}>
     <DismissKeyboard>
@@ -152,7 +154,10 @@ function CadastroUsuario() {
                 </FormControl>
                 <Button
                   isLoading={isLoading}
-                  onPress={handleCadastro}
+                  onPress={() => {
+                    loginUsuario();
+                    navigation.navigate("Home");
+                  }}
                   mt="2"
                   bg="red.500"
                   _text={{ color: "coolGray.50" }}

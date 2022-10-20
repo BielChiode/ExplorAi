@@ -1,12 +1,20 @@
+import { Box } from "native-base";
 import React from "react";
 import useAuth from "../../hooks/useAuth";
+import HomeEstabelecimento from "./HomeEstabelecimento";
 import HomeUsuario from "./HomeUsuario";
-
-// import { Container } from './styles';
 
 function Home({ navigation }) {
   const { user } = useAuth();
-  return <HomeUsuario navigations={navigation} />;
+  console.log(user);
+
+  if (!user.active) return <HomeUsuario navigations={navigation} />;
+  if (user.tipo === "usuario") {
+    return <HomeUsuario navigations={navigation} />;
+  }
+  if (user.tipo === "estabelecimento") {
+    return <HomeEstabelecimento />;
+  }
 }
 
 export default Home;

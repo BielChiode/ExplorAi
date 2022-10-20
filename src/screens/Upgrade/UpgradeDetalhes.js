@@ -44,7 +44,7 @@ function UpgradeDetalhes() {
         <Box w="100%" alignItems="flex-start" mt={5}>
           <PreferenciaItem
             titulo={"Característica x"}
-            checked={true}
+            checkedProp={true}
             width="40%"
             height="30px"
             fontSizeTitulo="14px"
@@ -60,7 +60,7 @@ function UpgradeDetalhes() {
         <Box w="100%" alignItems="flex-start" mt={5}>
           <PreferenciaItem
             titulo={"Característica x"}
-            checked={true}
+            checkedProp={true}
             width="40%"
             height="30px"
             fontSizeTitulo="14px"
@@ -85,13 +85,13 @@ function UpgradeDetalhes() {
             alignItems="center"
           >
             <Text fontSize="2xl" color="#fff">
-              R$49,90
+              R$150,00
             </Text>
           </Box>
         </Box>
         <Box w="100%" my={5}>
           <Button
-            onPress={() => console.log("oi")}
+            onPress={() => alert("Plano contratado com sucesso")}
             bg="#6EFAAC"
             w="70%"
             alignSelf="center"

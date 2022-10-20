@@ -18,6 +18,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
 import LoginImage from "../../../assets/login-estabelecimento.png";
 import { Alert } from "react-native";
+import useAuth from "../../hooks/useAuth";
+import { useNavigation } from "@react-navigation/native";
 
 function CadastroEstabelecimento() {
   const [show, setShow] = React.useState(false);
@@ -36,23 +38,27 @@ function CadastroEstabelecimento() {
     confirmaSenha: "",
   });
 
-  function handleCadastro() {
-    if (!form.email || !form.senha || !form.confirmaSenha) {
-      return Alert.alert("Cadastro", "Por favor preencha todos os campos...");
-    }
-    setIsLoading(true);
-    auth()
-      .createUserWithEmailAndPassword(form.email, form.senha)
-      .then((result) => {
-        console.log(result);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error.code);
-        setIsLoading(false);
-        return;
-      });
-  }
+  const navigation = useNavigation();
+
+  const { loginEstabelecimento } = useAuth();
+
+  // function handleCadastro() {
+  //   if (!form.email || !form.senha || !form.confirmaSenha) {
+  //     return Alert.alert("Cadastro", "Por favor preencha todos os campos...");
+  //   }
+  //   setIsLoading(true);
+  //   auth()
+  //     .createUserWithEmailAndPassword(form.email, form.senha)
+  //     .then((result) => {
+  //       console.log(result);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.code);
+  //       setIsLoading(false);
+  //       return;
+  //     });
+  // }
   return (
     <ScrollView bg="coolGray.50">
       <KeyboardAvoidingView>
@@ -221,7 +227,10 @@ function CadastroEstabelecimento() {
                 </FormControl>
                 <Button
                   isLoading={isLoading}
-                  onPress={handleCadastro}
+                  onPress={() => {
+                    loginEstabelecimento;
+                    navigation.navigate("Home");
+                  }}
                   bg="red.500"
                   _text={{ color: "coolGray.50" }}
                   mt={5}

@@ -17,11 +17,11 @@ import Preferencias from "../Preferencias";
 function Onboarding({ navigation }) {
   const [page, setPage] = useState(1);
   const nextPage = () => {
-    if (page == 4) {
-      return navigation.navigate("Home");
-    }
     setPage(page + 1);
-    console.log(page);
+    // if (page == 4) {
+    //   return
+    // }
+    // console.log(page);
   };
   switch (page) {
     case 1:
@@ -30,6 +30,8 @@ function Onboarding({ navigation }) {
       return <Page2 nextPage={nextPage} />;
     case 3:
       return <Page3 nextPage={nextPage} />;
+    case 4:
+      return <>{navigation.navigate("Home")}</>;
     default:
       break;
   }

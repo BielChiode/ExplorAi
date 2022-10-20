@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Box,
+  Button,
   Divider,
   Heading,
   HStack,
@@ -16,15 +17,16 @@ import PreferenciaItem from "../../components/PreferenciaItem";
 
 // import { Container } from './styles';
 
-function DetalhesEstabelecimento({ open = true }) {
+function DetalhesEstabelecimento({ open = true, route }) {
+  const { estabelecimento } = route.params;
   const [verMais, setVerMais] = React.useState(false);
-  const count = 3;
+  const count = estabelecimento.avaliacao;
   return (
     <VStack flex={1}>
       {/* Estabelecimento Imagens */}
       <Box w="100%" h="240px" bg="primary.300">
         <ImageBackground
-          source={RestauranteImg}
+          source={{ uri: estabelecimento.image }}
           style={{
             width: "100%",
             height: "100%",
@@ -53,18 +55,19 @@ function DetalhesEstabelecimento({ open = true }) {
       <Box w="100%" h="75px" px={3} pt={2}>
         <Box w="100%" h="100%">
           <HStack mt={2} space="3%" flexWrap="wrap">
+            {estabelecimento.caracteristicas.map((caracteristica, index) => {
+              return (
+                <PreferenciaItem
+                  key={index}
+                  titulo={caracteristica}
+                  width="30%"
+                />
+              );
+            })}
+            <PreferenciaItem titulo={"Wifi"} checkedProp={true} width="30%" />
             <PreferenciaItem
               titulo={"Musica ao vivo"}
-              checked={true}
-              width="30%"
-            />
-            <PreferenciaItem titulo={"Drinks"} checked={true} width="30%" />
-            <PreferenciaItem titulo={"Privativo"} checked={true} width="30%" />
-            <PreferenciaItem titulo={"Próximo"} checked={true} width="30%" />
-            <PreferenciaItem titulo={"Wifi"} checked={true} width="30%" />
-            <PreferenciaItem
-              titulo={"Musica ao vivo"}
-              checked={true}
+              checkedProp={true}
               width="30%"
             />
           </HStack>
@@ -74,7 +77,7 @@ function DetalhesEstabelecimento({ open = true }) {
       {/* Informações estabelecimento */}
       <ScrollView>
         <VStack flex={1} px={3} py={5}>
-          <Heading>Bar central da Vila Mariana</Heading>
+          <Heading>{estabelecimento.nome}</Heading>
           <HStack
             px={1}
             py={1}
@@ -84,7 +87,7 @@ function DetalhesEstabelecimento({ open = true }) {
             <HStack psace={1}>
               <MaterialIcons name="directions-walk" size={20} color="black" />
               <Text fontSize="md" fontWeight="semibold">
-                2 km
+                {estabelecimento.distancia} km
               </Text>
             </HStack>
             <HStack space={1}>
@@ -161,7 +164,7 @@ function DetalhesEstabelecimento({ open = true }) {
           <HStack my={2}>
             <MaterialIcons name="location-on" size={20} color="black" />
             <Text fontSize="sm" ml={2} fontWeight="bold">
-              Rua da Vila Mariana, 402 - Vila Mariana
+              Rua Jardim Garden, 402 - Jardins
             </Text>
           </HStack>
           <Divider my={3} />
@@ -170,7 +173,7 @@ function DetalhesEstabelecimento({ open = true }) {
             <HStack>
               <FontAwesome5 name="instagram" size={20} color="black" />
               <Text fontSize="sm" ml={2} fontWeight="bold" s>
-                @barcentralvmariana
+                @instagram
               </Text>
             </HStack>
             <HStack>
@@ -198,21 +201,19 @@ function DetalhesEstabelecimento({ open = true }) {
           alignItems="flex-end"
         >
           <Pressable>
-            <Box
+            <Button
               w="40%"
-              h="100%"
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
               bgColor="primaryLocal"
+              _text={{ color: "#fff" }}
               borderRadius={5}
-              p={5}
+              // p={5}
             >
-              <Text fontSize="sm" color="#fff">
-                Como chegar
-              </Text>
+              Como chegar
               <MaterialIcons name="arrow-forward-ios" color="#fff" />
-            </Box>
+            </Button>
           </Pressable>
         </Box>
       </ScrollView>

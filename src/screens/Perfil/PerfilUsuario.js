@@ -13,14 +13,13 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import useAuth from "../../hooks/useAuth";
 import PreferenciaItem from "../../components/PreferenciaItem";
+import { useNavigation } from "@react-navigation/native";
 
 function PerfilUsuario() {
+  const navigation = useNavigation();
+
   const [show, setShow] = React.useState(false);
-  const [nome, setNome] = React.useState(null);
-  const [email, setEmail] = React.useState(null);
-  const [senha, setSenha] = React.useState(null);
-  const { user, changeUser } = useAuth();
-  const userImg = require("../../../assets/avatar.png");
+  const { user, logout } = useAuth();
   return (
     <VStack flex={1} bg="coolGray.50" px={2}>
       <HStack h="100px" w="100%">
@@ -32,17 +31,38 @@ function PerfilUsuario() {
             {user.name}
           </Text>
         </VStack>
-        <Box w="100%" mt={2} alignItems="center">
-          <Pressable onPress={changeUser}>
-            <Avatar
-              bg="amber.500"
-              size="md"
-              source={{
-                uri: user.imagem,
-              }}
+        <Box
+          w="100%"
+          alignItems="center"
+          justifyContent="center"
+          flexDirection="row"
+        >
+          <Avatar
+            bg="amber.500"
+            size="md"
+            source={{
+              uri: user.imagem,
+            }}
+          >
+            Usuário
+          </Avatar>
+          <Pressable
+            onPress={() => {
+              logout();
+              return navigation.navigate("Home");
+            }}
+          >
+            <Box
+              w="30px"
+              h="30px"
+              bgColor="muted.300"
+              rounded="full"
+              alignItems="center"
+              justifyContent="center"
+              ml={2}
             >
-              Usuário
-            </Avatar>
+              <MaterialIcons name="logout" size={14} color="#525252" />
+            </Box>
           </Pressable>
         </Box>
       </HStack>
@@ -50,12 +70,18 @@ function PerfilUsuario() {
         Minhas preferências
       </Text>
       <HStack mt={5} space="3%" flexWrap="wrap">
-        <PreferenciaItem titulo={"Musica ao vivo"} checked={true} width="30%" />
-        <PreferenciaItem titulo={"Drinks"} checked={true} width="30%" />
-        <PreferenciaItem titulo={"Privativo"} checked={true} width="30%" />
-        <PreferenciaItem titulo={"Próximo"} checked={true} width="30%" />
-        <PreferenciaItem titulo={"Wifi"} checked={true} width="30%" />
-        <PreferenciaItem titulo={"Musica ao vivo"} checked={true} width="30%" />
+        {user.preferencias.map((preferencia, index) => {
+          return (
+            <PreferenciaItem
+              key={index}
+              titulo={preferencia}
+              checkedProp={true}
+              width="30%"
+              height="30px"
+              fontSizeTitulo="12px"
+            />
+          );
+        })}
       </HStack>
 
       <Box w="100%">

@@ -7,20 +7,20 @@ import {
   HStack,
   Icon,
   Input,
+  Pressable,
   Text,
   TextArea,
   VStack,
 } from "native-base";
 import useAuth from "../../hooks/useAuth";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-function PerfilEstabelecimento({navigationProp}) {
-  const avatar = require("../../../assets/gabriel.jpg");
+function PerfilEstabelecimento() {
+  const navigation = useNavigation();
+
   const [show, setShow] = React.useState(false);
-  const [nome, setNome] = React.useState(null);
-  const [email, setEmail] = React.useState(null);
-  const [senha, setSenha] = React.useState(null);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   return (
     <>
       <VStack flex={1} bg="coolGray.50" px={2}>
@@ -33,10 +33,28 @@ function PerfilEstabelecimento({navigationProp}) {
               {user.name}
             </Text>
           </VStack>
-          <Box w="100%" mt={2} alignItems="center">
-            <Avatar bg="amber.500" size="md" source={{uri: user.imagem}}>
+          <Box w="100%" mt={2} alignItems="center" flexDirection="column">
+            <Avatar bg="amber.500" size="md" source={{ uri: user.imagem }}>
               Usuário
             </Avatar>
+            <Pressable
+              onPress={() => {
+                logout();
+                return navigation.navigate("Home");
+              }}
+            >
+              <Box
+                w="30px"
+                h="30px"
+                bgColor="muted.300"
+                rounded="full"
+                alignItems="center"
+                justifyContent="center"
+                mt={2}
+              >
+                <MaterialIcons name="logout" size={14} color="#525252" />
+              </Box>
+            </Pressable>
           </Box>
         </HStack>
 
@@ -123,24 +141,24 @@ function PerfilEstabelecimento({navigationProp}) {
             </FormControl>
           </VStack>
         </Box>
+        <Box w="100%" mb={5} position="absolute" bottom={0}>
+          <Button
+            onPress={() => navigation.navigate("Upgrade")}
+            bg="#6EFAAC"
+            w="70%"
+            alignSelf="center"
+            leftIcon={
+              <Icon
+                as={<MaterialIcons name="upgrade" size={24} color="white" />}
+                name="cloud-upload-outline"
+                size="sm"
+              />
+            }
+          >
+            Fazer upgrade
+          </Button>
+        </Box>
       </VStack>
-      <Box w="100%" mb={5}>
-        <Button
-        onPress={() => navigationProp.navigate("Upgrade")}
-          bg="#6EFAAC"
-          w="70%"
-          alignSelf="center"
-          leftIcon={
-            <Icon
-              as={<MaterialIcons name="upgrade" size={24} color="white" />}
-              name="cloud-upload-outline"
-              size="sm"
-            />
-          }
-        >
-          Fazer upgrade
-        </Button>
-      </Box>
     </>
   );
 }
